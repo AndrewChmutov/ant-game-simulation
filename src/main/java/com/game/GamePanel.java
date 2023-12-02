@@ -19,6 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int screenWidth = tileSize * screenCol + sidePanelSize * 2;
     final int screenHeight = tileSize * screenRow;
 
+    final int fps = 60;
+
     Thread gameThread;
 
     public GamePanel() {
@@ -36,9 +38,25 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
+        long desiredDelta = 1_000_000_000 / fps;
+        long currentDelta;
+
         while (gameThread != null) {
+            long startTime = System.nanoTime();
+
             update();
             repaint();
+
+            currentDelta = desiredDelta - (System.nanoTime() - startTime);
+
+            if (currentDelta > 0) {
+                try {
+                    Thread.sleep((int)currentDelta / 1_000_000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 

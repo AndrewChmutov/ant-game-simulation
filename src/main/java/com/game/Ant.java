@@ -16,7 +16,7 @@ public class Ant extends Entity implements Runnable {
     Team color;
 
     public Ant(Node position) {
-        super(position);
+        super(position, Entity.Type.MOVABLE);
     }
 
     @Override

@@ -40,6 +40,9 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         nodes.get(0).insertEntity(new Ant(nodes.get(0)));
+
+        nodes.get((screenCol - 1) * screenCol).insertEntity(new Anthill(nodes.get((screenCol - 1) * screenCol), Ant.Team.BLUE));
+        nodes.get(screenRow - 1).insertEntity(new Anthill(nodes.get(screenRow - 1), Ant.Team.RED));
     }
 
     public void startGameThread() {

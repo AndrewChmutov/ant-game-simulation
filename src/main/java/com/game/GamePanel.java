@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -12,7 +13,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
     final int scale = 3;
     
-    public final int tileSize = originalTileSize * scale;
+    final int tileSize = originalTileSize * scale;
 
     final int screenCol = 10;
     final int screenRow = 10;
@@ -38,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
                 nodes.add(new Node(this, i, j));
             }
         }
-        nodes.get(0).insertEntity(new Ant(this, 0, 0));
+        nodes.get(0).insertEntity(new Ant(nodes.get(0)));
     }
 
     public void startGameThread() {
@@ -97,5 +98,13 @@ public class GamePanel extends JPanel implements Runnable {
         for (Node node : nodes) {
             node.draw(g2);
         }
+    }
+
+    public Point getWindowCoords(Point p) {
+        return new Point(sidePanelSize + (int)p.getX() * tileSize, (int)p.getY() * tileSize);
+    }
+
+    public int getTileSize() {
+        return tileSize;
     }
 }

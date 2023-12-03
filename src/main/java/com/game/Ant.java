@@ -2,6 +2,7 @@ package com.game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 public class Ant extends Entity implements Runnable {
     enum Team {
@@ -14,11 +15,8 @@ public class Ant extends Entity implements Runnable {
     int health;
     Team color;
 
-    GamePanel gp;
-
-    public Ant(GamePanel gp, int x, int y) {
-        super(x, y);
-        this.gp = gp;
+    public Ant(Node position) {
+        super(position);
     }
 
     @Override
@@ -29,6 +27,14 @@ public class Ant extends Entity implements Runnable {
     @Override
     public void draw(Graphics2D g2) {
         g2.setColor(Color.red);
-        g2.fillOval(gp.sidePanelSize + x * gp.tileSize, y * gp.tileSize, gp.tileSize, gp.tileSize);
+
+        Point originalPosition = position.getWindowCoords();
+
+        g2.fillOval(
+            (int)originalPosition.getX(), 
+            (int)originalPosition.getY(), 
+            position.getTileSize(),
+            position.getTileSize()
+        );
     }
 }

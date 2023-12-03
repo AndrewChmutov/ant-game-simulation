@@ -31,6 +31,14 @@ public class Node {
         return toCollect;
     }
 
+    public void insertEntity(Entity e) {
+        entities.add(e);
+    }
+
+    public void deleteEntity(Entity e) {
+        entities.remove(entities.indexOf(e));
+    }
+
     public ArrayList<Entity> getEntities() {
         return entities;
     }

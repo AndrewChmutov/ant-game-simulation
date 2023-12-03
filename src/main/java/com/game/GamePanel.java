@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
                 nodes.add(new Node(this, i, j));
             }
         }
+        nodes.get(0).insertEntity(new Ant(this, 0, 0));
     }
 
     public void startGameThread() {

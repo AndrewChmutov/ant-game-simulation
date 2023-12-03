@@ -7,4 +7,9 @@ public abstract class Entity {
     protected int y;
 
     public abstract void draw(Graphics2D g2);
+
+    Entity(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }

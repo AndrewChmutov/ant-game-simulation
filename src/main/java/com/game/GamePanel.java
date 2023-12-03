@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -23,12 +24,20 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
 
+    ArrayList<Node> nodes;
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(720, 480));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         // this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        nodes = new ArrayList<>();
+        for (int j = 0; j < screenCol; j++) {
+            for (int i = 0; i < screenRow; i++) {
+                nodes.add(new Node(this, i, j));
+            }
+        }
     }
 
     public void startGameThread() {
@@ -68,16 +77,24 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
-        printGrid(g2);
+        drawGrid(g2);
+        drawNodes(g2);
     }
 
-    void printGrid(Graphics2D g2) {
+    void drawGrid(Graphics2D g2) {
+        g2.setColor(Color.white);
         for (int i = 0; i <= screenCol; i++) {
             g2.drawLine(sidePanelSize + i * tileSize, 0, sidePanelSize + i * tileSize, screenHeight);
         }
 
         for (int i = 0; i < screenRow; i++) {
             g2.drawLine(sidePanelSize, i * tileSize, screenWidth - sidePanelSize, i * tileSize);
+        }
+    }
+
+    void drawNodes(Graphics2D g2) {
+        for (Node node : nodes) {
+            node.draw(g2);
         }
     }
 }

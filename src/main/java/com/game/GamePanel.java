@@ -39,15 +39,21 @@ public class GamePanel extends JPanel implements Runnable {
                 nodes.add(new Node(this, i, j));
             }
         }
-        nodes.get(0).insertEntity(new Ant(nodes.get(0)));
-
-        nodes.get((screenCol - 1) * screenCol).insertEntity(new Anthill(nodes.get((screenCol - 1) * screenCol), Ant.Team.BLUE));
-        nodes.get(screenRow - 1).insertEntity(new Anthill(nodes.get(screenRow - 1), Ant.Team.RED));
+        
     }
 
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+        
+        nodes.get((screenCol - 1) * screenCol).insertEntity(new Anthill(nodes.get((screenCol - 1) * screenCol), Ant.Team.BLUE));
+        nodes.get(screenRow - 1).insertEntity(new Anthill(nodes.get(screenRow - 1), Ant.Team.RED));
+        
+        Ant ant = new Ant(nodes.get(0));
+        nodes.get(0).insertEntity(ant);
+
+        Thread t = new Thread(ant);
+        t.start();
     }
 
     @Override
@@ -109,5 +115,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int getTileSize() {
         return tileSize;
+    }
+
+    public Node getNode(int x, int y) {
+        if (x < screenCol && y < screenRow && x >= 0 && y >= 0)
+            return nodes.get(y * screenCol + x);
+
+        return null;
     }
 }

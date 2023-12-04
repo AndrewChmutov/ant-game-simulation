@@ -51,6 +51,23 @@ public class Node {
         return gp.getTileSize();
     }
 
+    public ArrayList<Node> getNeighbors() {
+        ArrayList<Node> neighbors = new ArrayList<>();
+
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if (i == j)
+                    continue;
+                
+                Node temp = gp.getNode((int)position.getX() + i, (int)position.getY() + j);
+                if (temp != null)
+                    neighbors.add(temp);
+            }
+        }
+
+        return neighbors;
+    }
+
     public void draw(Graphics2D g2) {
         int chroma = Math.min((int)(1.0 * lavrae / 100 * 128), 128);
         g2.setColor(new Color(255, 255, 255, chroma));

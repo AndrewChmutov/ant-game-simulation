@@ -5,19 +5,27 @@ import java.util.ArrayList;
 public class Game extends Thread {
     GameFrame frame;
     GamePanel panel;
+
+    final int maxX, maxY;
     
     ArrayList<Node> nodes;
     ArrayList<Anthill> anthills;
 
-    public Game() {
+    public Game(int maxX, int maxY) {
+        this.maxX = maxX;
+        this.maxY = maxY;
+
+        setupField();
+        setupScreen();
+    }
+    
+    public void setupField() {
         anthills = new ArrayList<>();
         nodes = new ArrayList<>();
-
-        setupScreen();
-
-        for (int j = 0; j < panel.getMaxX(); j++) {
-            for (int i = 0; i < panel.getMaxY(); i++) {
-                nodes.add(new Node(this, i, j));
+        
+        for (int i = 0; i < maxY; i++) {
+            for (int j = 0; j < maxX; j++) {
+                nodes.add(new Node(this, j, i));
             }
         }
     }
@@ -28,7 +36,7 @@ public class Game extends Thread {
 
     void setupScreen() {
         frame = new GameFrame();
-        panel = new GamePanel(this, nodes);
+        panel = new GamePanel(this, nodes, maxX, maxY, 120);
 
         frame.add(panel);
         frame.pack();
@@ -53,8 +61,8 @@ public class Game extends Thread {
 
     @Override
     public void run() {
-        deployAnthill(panel.getMaxX() - 1, 0, Ant.Team.BLUE);
-        deployAnthill(0, panel.getMaxY() - 1, Ant.Team.RED);
+        deployAnthill(maxX - 1, 0, Ant.Team.BLUE);
+        deployAnthill(0, maxY - 1, Ant.Team.RED);
         initAnts();
 
         long desiredDelta = 1_000_000_000 / panel.getFps();
@@ -79,8 +87,8 @@ public class Game extends Thread {
     }
 
     public Node getNode(int x, int y) {
-        if (x < panel.getMaxX() && y < panel.getMaxY() && x >= 0 && y >= 0)
-            return nodes.get(y * panel.getMaxX() + x);
+        if (x < maxX && y < maxY && x >= 0 && y >= 0)
+            return nodes.get(y * maxX + x);
 
         return null;
     }

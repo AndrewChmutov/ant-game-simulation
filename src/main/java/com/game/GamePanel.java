@@ -10,25 +10,36 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
-    final int originalTileSize = 16;
-    final int scale = 3;
+    final int originalTileSize;
+    final int scale;
+    final int tileSize;;
     
-    final int tileSize = originalTileSize * scale;
+    final int maxX;
+    final int maxY;
 
-    final int maxX = 10;
-    final int maxY = 10;
-    final int sidePanelSize = 120;
-    final int screenWidth = tileSize * maxX + sidePanelSize * 2;
-    final int screenHeight = tileSize * maxY;
+    final int sidePanelSize;
+    final int screenWidth;
+    final int screenHeight;
 
     final int fps = 60;
-    Graphics2D g2;
 
+    Graphics2D g2;
     ArrayList<Node> nodes;
     Game game;
 
-    public GamePanel(Game game, ArrayList<Node> nodes) {
-        this.setPreferredSize(new Dimension(720, 480));
+    public GamePanel(Game game, ArrayList<Node> nodes, int maxX, int maxY, int sidePanelSize) {
+        originalTileSize = 16;
+        scale = 3;
+        tileSize = originalTileSize * scale;
+
+        this.maxX = maxX;
+        this.maxY = maxY;
+
+        this.sidePanelSize = sidePanelSize;
+        screenWidth = tileSize * maxX + sidePanelSize * 2;
+        screenHeight = tileSize * maxY;
+
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         // this.addKeyListener(keyHandler);

@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
 
     ArrayList<Node> nodes;
+    ArrayList<Anthill> anthills;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(720, 480));
@@ -33,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         // this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        anthills = new ArrayList<>();
         nodes = new ArrayList<>();
         for (int j = 0; j < screenCol; j++) {
             for (int i = 0; i < screenRow; i++) {
@@ -42,18 +44,26 @@ public class GamePanel extends JPanel implements Runnable {
         
     }
 
+    public Anthill deployAnthill(int x, int y, Ant.Team team) {
+        Node n = getNode(x, y);
+        Anthill a = new Anthill(n, team);
+        n.insertEntity(a);
+
+        return a;
+    }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
         
-        nodes.get((screenCol - 1) * screenCol).insertEntity(new Anthill(nodes.get((screenCol - 1) * screenCol), Ant.Team.BLUE));
-        nodes.get(screenRow - 1).insertEntity(new Anthill(nodes.get(screenRow - 1), Ant.Team.RED));
-        
-        Ant ant = new Ant(nodes.get(0));
-        nodes.get(0).insertEntity(ant);
+        anthills.add(deployAnthill(screenCol - 1, 0, Ant.Team.BLUE));
+        anthills.add(deployAnthill(0, screenRow - 1, Ant.Team.RED));
 
-        Thread t = new Thread(ant);
-        t.start();
+        for (int i = 0; i < anthills.size(); i++) {
+            for (int j = 0; j < 3; j++) {
+                anthills.get(i).produceAnt();
+            }
+        }
     }
 
     @Override

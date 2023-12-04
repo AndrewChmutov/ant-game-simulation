@@ -18,8 +18,9 @@ public class Ant extends Entity implements Runnable, Movable {
     int health;
     Team color;
 
-    public Ant(Node position) {
+    public Ant(Node position, Team team) {
         super(position, Entity.Type.MOVABLE);
+        this.color = team;
         health = 10;
     }
 
@@ -27,8 +28,10 @@ public class Ant extends Entity implements Runnable, Movable {
     public void run() {
         while (health > 0) {
             move();
+
+            Random random = new Random();
             try {
-                Thread.sleep(300);
+                Thread.sleep(300 + random.nextInt(200));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -39,7 +42,16 @@ public class Ant extends Entity implements Runnable, Movable {
     public synchronized void draw(Graphics2D g2) {
         if (System.getProperty("os.name").contains("Linux")) 
             Toolkit.getDefaultToolkit().sync();
-        g2.setColor(Color.red);
+
+        switch (color) {
+            case RED:
+                g2.setColor(Color.red);
+                break;
+        
+            case BLUE:
+                g2.setColor(Color.blue);
+                break;
+        }
 
         Point originalPosition = position.getWindowCoords();
 

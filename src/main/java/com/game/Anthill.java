@@ -17,6 +17,14 @@ public class Anthill extends Entity {
         this.team = team;
     }
 
+    public void produceAnt() {
+        Ant ant = new Ant(position, team);
+        position.insertEntity(ant);
+
+        Thread t = new Thread(ant);
+        t.start();
+    }
+
     @Override
     public void draw(Graphics2D g2) {
         switch (team) {

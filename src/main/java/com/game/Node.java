@@ -31,11 +31,11 @@ public class Node {
         return toCollect;
     }
 
-    public void insertEntity(Entity e) {
+    public synchronized void insertEntity(Entity e) {
         entities.add(e);
     }
 
-    public void deleteEntity(Entity e) {
+    public synchronized void deleteEntity(Entity e) {
         entities.remove(entities.indexOf(e));
     }
 
@@ -68,7 +68,7 @@ public class Node {
         return neighbors;
     }
 
-    public void draw(Graphics2D g2) {
+    public synchronized void draw(Graphics2D g2) {
         int chroma = Math.min((int)(1.0 * lavrae / 100 * 128), 128);
         g2.setColor(new Color(255, 255, 255, chroma));
 

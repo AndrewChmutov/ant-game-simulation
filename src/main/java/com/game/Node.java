@@ -1,7 +1,6 @@
 package com.game;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,12 +10,12 @@ public class Node {
     int lavrae;
 
     ArrayList<Entity> entities;
-    GamePanel gp;
+    Game game;
 
-    public Node(GamePanel gp, int x, int y) {
+    public Node(Game game, int x, int y) {
         position = new Point(x, y);
         entities = new ArrayList<>();
-        this.gp = gp;
+        this.game = game;
         lavrae = ThreadLocalRandom.current().nextInt(0, 100);
     }
     
@@ -25,8 +24,11 @@ public class Node {
     }
 
     public int collectLavrae(int capacity) {
-        int toCollect = Math.min(lavrae, capacity);
-        lavrae -= toCollect;
+        int toCollect;
+        synchronized (game) {
+            toCollect = Math.min(lavrae, capacity);
+            lavrae -= toCollect;
+        }
 
         return toCollect;
     }
@@ -43,14 +45,6 @@ public class Node {
         return entities;
     }
 
-    public Point getWindowCoords() {
-        return gp.getWindowCoords(position);
-    }
-
-    public int getTileSize() {
-        return gp.getTileSize();
-    }
-
     public ArrayList<Node> getNeighbors() {
         ArrayList<Node> neighbors = new ArrayList<>();
 
@@ -59,7 +53,7 @@ public class Node {
                 if (i == j)
                     continue;
                 
-                Node temp = gp.getNode((int)position.getX() + i, (int)position.getY() + j);
+                Node temp = game.getNode((int)position.getX() + i, (int)position.getY() + j);
                 if (temp != null)
                     neighbors.add(temp);
             }
@@ -68,16 +62,19 @@ public class Node {
         return neighbors;
     }
 
-    public synchronized void draw(Graphics2D g2) {
+    public Point getPoint() {
+        return position;
+    }
+
+    public void draw() {
         int chroma = Math.min((int)(1.0 * lavrae / 100 * 128), 128);
-        g2.setColor(new Color(255, 255, 255, chroma));
 
-        Point pointToPlot = getWindowCoords();
+        GamePanel panel = game.getGamePanel();
 
-        g2.fillRect(pointToPlot.x, pointToPlot.y, getTileSize(), getTileSize());
+        panel.fillRect(position, new Color(chroma, chroma, chroma, 128));
 
         for (Entity entity : entities) {
-            entity.draw(g2);
+            entity.draw();
         }
     }
 }

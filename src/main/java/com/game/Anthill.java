@@ -1,8 +1,6 @@
 package com.game;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
 
 import com.game.Ant.Team;
 
@@ -10,15 +8,15 @@ public class Anthill extends Entity {
     int collectedLavrae;
     Team team;
     
-    public Anthill(Node position, Team team) {
-        super(position, Entity.Type.STATIC);
+    public Anthill(Game game, Node position, Team team) {
+        super(game, position);
 
         collectedLavrae = 0;
         this.team = team;
     }
 
     public void produceAnt() {
-        Ant ant = new Ant(position, team);
+        Ant ant = new Ant(game, position, team);
         position.insertEntity(ant);
 
         Thread t = new Thread(ant);
@@ -26,18 +24,18 @@ public class Anthill extends Entity {
     }
 
     @Override
-    public void draw(Graphics2D g2) {
+    public void draw() {
+        Color color = Color.white;
         switch (team) {
             case BLUE:
-                g2.setColor(new Color(0, 0, 200, 100));
+                color = new Color(0, 0, 200, 100);
                 break;
             case RED:
-                g2.setColor(new Color(200, 0, 0, 100));
+                color = new Color(200, 0, 0, 100);
                 break;
         }
 
-        Point originalPosition = position.getWindowCoords();
-
-        g2.fillRect(originalPosition.x, originalPosition.y, position.getTileSize(), position.getTileSize());
+        GamePanel panel = game.getGamePanel();
+        panel.fillRect(position.getPoint(), color);
     }
 }

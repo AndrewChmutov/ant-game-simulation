@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Ant extends Entity implements Runnable, Movable {
     enum Team {
@@ -61,8 +62,7 @@ public class Ant extends Entity implements Runnable, Movable {
     public void move() {
         ArrayList<Node> neighbors = position.getNeighbors();
 
-        Random random = new Random();
-        int nextMove = random.nextInt(neighbors.size());
+        int nextMove = ThreadLocalRandom.current().nextInt(neighbors.size());
 
         Node nextPosition = neighbors.get(nextMove);
 

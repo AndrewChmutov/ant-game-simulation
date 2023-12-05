@@ -35,6 +35,8 @@ public class Game extends Thread {
     }
 
     void setupScreen() {
+        assert nodes != null : "Nodes have to be initialized. Call setupField() first";
+
         frame = new GameFrame();
         panel = new GamePanel(this, nodes, maxX, maxY, 120);
 
@@ -44,6 +46,10 @@ public class Game extends Thread {
 
     public Anthill deployAnthill(int x, int y, Ant.Team team) {
         Node n = getNode(x, y);
+
+        assert n != null : "Invalid node"; 
+        assert n.isEmpty() : "Node is not empty";
+
         Anthill a = new Anthill(this, n, team);
         n.insertEntity(a);
         anthills.add(a);

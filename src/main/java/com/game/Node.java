@@ -76,9 +76,14 @@ public class Node {
         entities.sort((Entity e1, Entity e2) -> {
             return e1.getDrawPriority() - e2.getDrawPriority();
         });
-        
+
         for (Entity entity : entities) {
             entity.draw();
         }
+    }
+
+
+    public synchronized boolean isEmpty() {
+        return entities.isEmpty();
     }
 }

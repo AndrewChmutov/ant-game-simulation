@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Stone extends Entity implements IInteractive {
     public Stone(Game game, Node node) {
         super(game, node);
+        super.setDrawPriority(3);
     }
 
     @Override

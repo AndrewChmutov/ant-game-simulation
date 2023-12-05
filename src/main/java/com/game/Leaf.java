@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Leaf extends Entity implements IAffecting {
     public Leaf(Game game, Node node) {
         super(game, node);
+        super.setDrawPriority(0);
     }
 
     @Override

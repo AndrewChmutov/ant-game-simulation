@@ -42,6 +42,19 @@ public class Node {
     }
 
     public ArrayList<Entity> getEntities() {
+        ArrayList<IAffecting> affecting = new ArrayList<>();
+
+        for (Entity e : entities) {
+            if (e instanceof IAffecting) {
+                affecting.add((IAffecting)e);
+            }
+        }
+
+        ArrayList<Entity> tempEntities = new ArrayList<>(entities);
+        for (IAffecting a : affecting) {
+            tempEntities = a.affect(tempEntities);
+        }
+
         return entities;
     }
 

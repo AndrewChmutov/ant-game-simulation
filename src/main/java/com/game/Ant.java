@@ -20,6 +20,7 @@ public class Ant extends Entity implements Runnable, IMovable {
     public Ant(Game game, Node position, Team team) {
         super(game, position);
         this.color = team;
+        super.setDrawPriority(1);
         health = 10;
     }
 

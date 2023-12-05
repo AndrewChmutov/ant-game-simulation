@@ -1,5 +1,5 @@
 package com.game;
 
-public interface Movable {
+public interface IMovable {
     public void move();
 }

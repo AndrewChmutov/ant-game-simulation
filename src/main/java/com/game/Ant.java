@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ant extends Entity implements Runnable, Movable {
+public class Ant extends Entity implements Runnable, IMovable {
     enum Team {
         BLUE,
         RED

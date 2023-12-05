@@ -29,9 +29,14 @@ public class Ant extends Entity implements Runnable, IMovable {
         while (health > 0) {
             move();
 
-            Random random = new Random();
+            ArrayList<Entity> inSameNode = position.getEntities();
+            for (Entity e : inSameNode) {
+                if (e instanceof IInteractive)
+                    ((IInteractive)e).interact(this);
+            }
+
             try {
-                Thread.sleep(300 + random.nextInt(200));
+                Thread.sleep(300 + ThreadLocalRandom.current().nextInt(200));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

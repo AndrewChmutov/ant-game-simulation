@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -61,6 +62,9 @@ public class GamePanel extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
+        if (System.getProperty("os.name").contains("Linux")) 
+            Toolkit.getDefaultToolkit().sync();
+        
         super.paintComponent(g);
 
         g2 = (Graphics2D)g;
@@ -69,6 +73,9 @@ public class GamePanel extends JPanel {
     }
 
     void fillRect(int x, int y, Color color) {
+        if (System.getProperty("os.name").contains("Linux")) 
+            Toolkit.getDefaultToolkit().sync();
+        
         Point original = getOriginalPoint(new Point(x, y));
         x = (int)original.getX();
         y = (int)original.getY();
@@ -78,6 +85,9 @@ public class GamePanel extends JPanel {
     }
 
     void fillRect(Point position, Color color) {
+        if (System.getProperty("os.name").contains("Linux")) 
+            Toolkit.getDefaultToolkit().sync();
+        
         Point original = getOriginalPoint(position);
         int x = (int)original.getX();
         int y = (int)original.getY();
@@ -87,6 +97,9 @@ public class GamePanel extends JPanel {
     }
 
     void fillOval(int x, int y, Color color) {
+        if (System.getProperty("os.name").contains("Linux")) 
+            Toolkit.getDefaultToolkit().sync();
+        
         Point original = getOriginalPoint(new Point(x, y));
         x = (int)original.getX();
         y = (int)original.getY();
@@ -96,6 +109,9 @@ public class GamePanel extends JPanel {
     }
 
     void fillOval(Point position, Color color) {
+        if (System.getProperty("os.name").contains("Linux")) 
+            Toolkit.getDefaultToolkit().sync();
+        
         Point original = getOriginalPoint(position);
         int x = (int)original.getX();
         int y = (int)original.getY();

@@ -24,9 +24,9 @@ public class Game extends Thread {
         nodes = new ArrayList<>();
         INodeFiller filler = new DefaultNodeFiller(0.05, 0.05);
         
-        for (int i = 0; i < maxX; i++) {
-            for (int j = 0; j < maxY; j++) {
-                Node node = new Node(this, i, j);
+        for (int i = 0; i < maxY; i++) {
+            for (int j = 0; j < maxX; j++) {
+                Node node = new Node(this, j, i);
                 filler.fill(node);
                 nodes.add(node);
             }

@@ -94,7 +94,7 @@ public class Node {
         panel.fillRect(position, new Color(chroma, chroma, chroma, 128));
 
         entities.sort((Entity e1, Entity e2) -> {
-            return e1.getDrawPriority() - e2.getDrawPriority();
+            return - e1.getDrawPriority() + e2.getDrawPriority();
         });
 
         for (Entity entity : entities) {

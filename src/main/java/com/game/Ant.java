@@ -3,7 +3,6 @@ package com.game;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Ant extends Entity implements Runnable, IMovable {
@@ -29,10 +28,12 @@ public class Ant extends Entity implements Runnable, IMovable {
         while (health > 0) {
             move();
 
-            ArrayList<Entity> inSameNode = position.getEntities();
-            for (Entity e : inSameNode) {
-                if (e instanceof IInteractive)
-                    ((IInteractive)e).interact(this);
+            synchronized (game) {
+                ArrayList<Entity> inSameNode = position.getEntities();
+                for (Entity e : inSameNode) {
+                    if (e instanceof IInteractive)
+                        ((IInteractive)e).interact(this);
+                }
             }
 
             try {

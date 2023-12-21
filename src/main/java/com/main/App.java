@@ -5,7 +5,7 @@ import com.game.Game;
 public class App 
 {
     public static void main(String[] args) {
-        Game game = new Game(10, 10);
+        Game game = new Game(20, 20);
         game.start();
     }
 }

@@ -12,7 +12,7 @@ public class Stone extends Entity implements IInteractive {
     @Override
     public void interact(Entity e) {
         try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(200));
+            Thread.sleep(ThreadLocalRandom.current().nextInt(400) + 300);
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }

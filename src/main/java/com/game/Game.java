@@ -1,6 +1,7 @@
 package com.game;
 
 import java.util.ArrayList;
+import java.awt.Toolkit;
 
 public class Game extends Thread {
     GameFrame frame;
@@ -79,7 +80,7 @@ public class Game extends Thread {
 
         while (true) {
             long startTime = System.nanoTime();
-
+            Toolkit.getDefaultToolkit().sync();
             panel.repaint();
 
             currentDelta = desiredDelta - (System.nanoTime() - startTime);

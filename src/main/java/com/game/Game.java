@@ -46,6 +46,7 @@ public class Game extends Thread {
 
         frame.add(panel);
         frame.pack();
+        frame.setVisible(true);
     }
 
     public Anthill deployAnthill(int x, int y, Ant.Team team) {

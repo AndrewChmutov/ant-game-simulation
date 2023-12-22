@@ -8,6 +8,5 @@ public class GameFrame extends JFrame {
         this.setResizable(false);
         this.setTitle("title");
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
     }
 }

@@ -1,12 +1,12 @@
 package com.game;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class Leaf extends Entity implements IAffecting {
     public Leaf(Game game, Node node) {
         super(game, node);
         super.setDrawPriority(0);
+        super.setTile("leaf", 3);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class Leaf extends Entity implements IAffecting {
     public void draw() {
         GamePanel panel = game.getGamePanel();
 
-        panel.fillOval(position.getPoint(), Color.green);
+        panel.drawImage(tile, position.getPoint());
     }
     
 }

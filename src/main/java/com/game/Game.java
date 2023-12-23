@@ -6,15 +6,21 @@ import java.awt.Toolkit;
 public class Game extends Thread {
     GameFrame frame;
     GamePanel panel;
+    Settings settings;
 
-    final int maxX, maxY;
-    
     ArrayList<Node> nodes;
     ArrayList<Anthill> anthills;
 
-    public Game(int maxX, int maxY) {
-        this.maxX = maxX;
-        this.maxY = maxY;
+    public Game() {
+        System.out.println("kek1");
+        SettingsLoader settingsLoader;
+        System.out.println("kek2");
+        settingsLoader = new SettingsLoader();
+
+        System.out.println("kek3");
+        settings = new Settings();
+        settingsLoader.dumpSettings("settings", settings);
+        settings = settingsLoader.loadSettings("settings"); 
 
         setupField();
         setupScreen();
@@ -25,8 +31,8 @@ public class Game extends Thread {
         nodes = new ArrayList<>();
         INodeFiller filler = new DefaultNodeFiller(0.05, 0.05);
         
-        for (int i = 0; i < maxY; i++) {
-            for (int j = 0; j < maxX; j++) {
+        for (int i = 0; i < settings.getMaxY(); i++) {
+            for (int j = 0; j < settings.getMaxX(); j++) {
                 Node node = new Node(this, j, i);
                 filler.fill(node);
                 nodes.add(node);
@@ -42,7 +48,7 @@ public class Game extends Thread {
         assert nodes != null : "Nodes have to be initialized. Call setupField() first";
 
         frame = new GameFrame();
-        panel = new GamePanel(this, nodes, maxX, maxY, 120);
+        panel = new GamePanel(this, nodes, settings.getMaxX(), settings.getMaxY(), 120);
 
         frame.add(panel);
         frame.pack();
@@ -72,8 +78,8 @@ public class Game extends Thread {
 
     @Override
     public void run() {
-        deployAnthill(maxX - 1, 0, Ant.Team.BLUE);
-        deployAnthill(0, maxY - 1, Ant.Team.RED);
+        deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
+        deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
         initAnts();
 
         long desiredDelta = 1_000_000_000 / panel.getFps();
@@ -98,8 +104,8 @@ public class Game extends Thread {
     }
 
     public Node getNode(int x, int y) {
-        if (x < maxX && y < maxY && x >= 0 && y >= 0)
-            return nodes.get(y * maxX + x);
+        if (x < settings.getMaxX() && y < settings.getMaxY() && x >= 0 && y >= 0)
+            return nodes.get(y * settings.getMaxX() + x);
 
         return null;
     }

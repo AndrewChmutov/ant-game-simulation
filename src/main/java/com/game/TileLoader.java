@@ -1,8 +1,6 @@
 package com.game;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +24,6 @@ public class TileLoader {
 
         grph.drawImage(image, 0, 0, null);
         grph.dispose();
-
-        System.out.println(image.getWidth());
         
         return bi;
     }

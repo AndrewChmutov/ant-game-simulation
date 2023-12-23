@@ -1,12 +1,12 @@
 package com.game;
 
-import java.awt.Color;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Stone extends Entity implements IInteractive {
     public Stone(Game game, Node node) {
         super(game, node);
         super.setDrawPriority(3);
+        super.setTile("stone", 3);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Stone extends Entity implements IInteractive {
     public void draw() {
         GamePanel panel = game.getGamePanel();
 
-        panel.fillOval(position.getPoint(), Color.yellow);
+        panel.drawImage(tile, position.getPoint());
     }
     
 }

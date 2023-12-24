@@ -12,14 +12,8 @@ public class Game extends Thread {
     ArrayList<Anthill> anthills;
 
     public Game() {
-        System.out.println("kek1");
         SettingsLoader settingsLoader;
-        System.out.println("kek2");
         settingsLoader = new SettingsLoader();
-
-        System.out.println("kek3");
-        settings = new Settings();
-        settingsLoader.dumpSettings("settings", settings);
         settings = settingsLoader.loadSettings("settings"); 
 
         setupField();

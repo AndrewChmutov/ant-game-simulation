@@ -20,6 +20,11 @@ public class Settings {
 
     private int fps = 60;
 
+    public void recalculate() {
+        screenWidth = tileSize * maxX + 2 * sidePanelSize;
+        screenHeight = tileSize * maxY;
+    }
+
     public int getOriginalTileSize() {
         return originalTileSize;
     }

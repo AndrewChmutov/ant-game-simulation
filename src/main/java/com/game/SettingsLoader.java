@@ -18,6 +18,8 @@ public class SettingsLoader {
             e.printStackTrace();
         }
 
+        settings.recalculate();
+
         return settings;
     }
 

@@ -38,11 +38,15 @@ public class Game extends Thread {
         return panel;
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
     void setupScreen() {
         assert nodes != null : "Nodes have to be initialized. Call setupField() first";
 
         frame = new GameFrame();
-        panel = new GamePanel(this, nodes, settings.getMaxX(), settings.getMaxY(), 120);
+        panel = new GamePanel(this, nodes);
 
         frame.add(panel);
         frame.pack();
@@ -76,7 +80,7 @@ public class Game extends Thread {
         deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
         initAnts();
 
-        long desiredDelta = 1_000_000_000 / panel.getFps();
+        long desiredDelta = 1_000_000_000 / settings.getFps();
         long currentDelta;
 
         while (true) {

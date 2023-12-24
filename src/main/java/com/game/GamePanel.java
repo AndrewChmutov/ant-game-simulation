@@ -12,54 +12,27 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
-    final int originalTileSize;
-    final int scale;
-    final int tileSize;;
-    
-    final int maxX;
-    final int maxY;
-
-    final int sidePanelSize;
-    final int screenWidth;
-    final int screenHeight;
-
-    final int fps = 60;
-
     Graphics2D g2;
     ArrayList<Node> nodes;
+    Settings settings;
     Game game;
 
-    public GamePanel(Game game, ArrayList<Node> nodes, int maxX, int maxY, int sidePanelSize) {
-        originalTileSize = 16;
-        scale = 3;
-        tileSize = originalTileSize * scale;
+    public GamePanel(Game game, ArrayList<Node> nodes) {
+        this.game = game;
+        this.nodes = nodes;
+        settings = game.getSettings();
 
-        this.maxX = maxX;
-        this.maxY = maxY;
+        this.setPreferredSize(
+            new Dimension(
+                settings.getScreenWidth(), 
+                settings.getScreenHeight()
+            )
+        );
 
-        this.sidePanelSize = sidePanelSize;
-        screenWidth = tileSize * maxX + sidePanelSize * 2;
-        screenHeight = tileSize * maxY;
-
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         // this.addKeyListener(keyHandler);
         this.setFocusable(true);
-        this.nodes = nodes;
-        this.game = game;
-    }
-
-    public int getFps() {
-        return fps;
-    };
-
-    public int getMaxX() {
-        return maxX;
-    }
-
-    public int getMaxY() {
-        return maxY;
     }
 
     public void paintComponent(Graphics g) {
@@ -86,7 +59,7 @@ public class GamePanel extends JPanel {
         int y = (int)original.getY();
 
         g2.setColor(color);
-        g2.fillRect(x, y, tileSize, tileSize);
+        g2.fillRect(x, y, settings.getTileSize(), settings.getTileSize());
     }
 
     void fillOval(int x, int y, Color color) {
@@ -102,7 +75,7 @@ public class GamePanel extends JPanel {
         int y = (int)original.getY();
 
         g2.setColor(color);
-        g2.fillOval(x, y, tileSize, tileSize);
+        g2.fillOval(x, y, settings.getTileSize(), settings.getTileSize());
     }
 
     void drawImage(BufferedImage image, Point position) {
@@ -119,12 +92,12 @@ public class GamePanel extends JPanel {
 
     void drawGrid() {
         g2.setColor(Color.white);
-        for (int i = 0; i <= maxX; i++) {
-            g2.drawLine(sidePanelSize + i * tileSize, 0, sidePanelSize + i * tileSize, screenHeight);
+        for (int i = 0; i <= settings.getMaxX(); i++) {
+            g2.drawLine(settings.getSidePanelSize() + i * settings.getTileSize(), 0, settings.getSidePanelSize() + i * settings.getTileSize(), settings.getScreenHeight());
         }
 
-        for (int i = 0; i < maxY; i++) {
-            g2.drawLine(sidePanelSize, i * tileSize, screenWidth - sidePanelSize, i * tileSize);
+        for (int i = 0; i < settings.getMaxY(); i++) {
+            g2.drawLine(settings.getSidePanelSize(), i * settings.getTileSize(), settings.getScreenWidth() - settings.getSidePanelSize(), i * settings.getTileSize());
         }
     }
 
@@ -137,10 +110,6 @@ public class GamePanel extends JPanel {
     }
 
     public Point getOriginalPoint(Point p) {
-        return new Point(sidePanelSize + (int)p.getX() * tileSize, (int)p.getY() * tileSize);
-    }
-
-    public int getTileSize() {
-        return tileSize;
+        return new Point(settings.getSidePanelSize() + (int)p.getX() * settings.getTileSize(), (int)p.getY() * settings.getTileSize());
     }
 }

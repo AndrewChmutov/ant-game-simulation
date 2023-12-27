@@ -11,7 +11,8 @@ public abstract class Entity {
     public abstract void draw();
 
     public void setTile(String name, int scale) {
-        tile = TileLoader.loadTile(name, scale);
+        tile = TileLoader.loadTile(name);
+        tile = TileScaler.scale(tile, scale, scale);
     }
 
     public void drawTile() {
@@ -31,5 +32,9 @@ public abstract class Entity {
 
     public int getDrawPriority() {
         return drawPriority;
+    }
+
+    public Node getPosition() {
+        return position;
     }
 }

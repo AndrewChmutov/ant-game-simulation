@@ -100,6 +100,13 @@ public class Game extends Thread {
     public void run() {
         deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
         deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
+
+        IconDrawer iconDrawer = new SideIconDrawer(this, SideIconDrawer.Direction.NorthEast);
+        anthills.get(0).setIconDrawer(iconDrawer);
+
+        iconDrawer = new SideIconDrawer(this, SideIconDrawer.Direction.SouthWest);
+        anthills.get(1).setIconDrawer(iconDrawer);
+
         initAnts();
 
         loop();

@@ -90,6 +90,12 @@ public class GamePanel extends JPanel {
         g2.drawImage(image, x, y, null);
     }
 
+    void drawImageTruePosition(BufferedImage image, Point truePosition) {
+        int x = (int)truePosition.getX();
+        int y = (int)truePosition.getY();
+        g2.drawImage(image, x, y, null);
+    }
+
     void drawGrid() {
         g2.setColor(Color.white);
         for (int i = 0; i <= settings.getMaxX(); i++) {

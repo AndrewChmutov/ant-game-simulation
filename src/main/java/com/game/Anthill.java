@@ -1,6 +1,7 @@
 package com.game;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 import com.game.Ant.Team;
 
@@ -8,11 +9,39 @@ public class Anthill extends Entity {
     int collectedLavrae;
     Team team;
     
+    BufferedImage icon;
+    IconDrawer iconDrawer;
+
     public Anthill(Game game, Node position, Team team) {
         super(game, position);
 
         collectedLavrae = 0;
         this.team = team;
+
+        Settings settings = game.getSettings();
+
+        String picName;
+        switch (team) {
+            case BLUE:
+                picName = "blue";
+                break;
+            case RED:
+                picName = "red";
+                break;
+            default:
+                picName = "";
+                break;
+        }
+
+        icon = TileLoader.loadTile(picName);
+        icon = TileScaler.fit(
+            icon,
+            settings.getTileSize() * 2,
+            settings.getTileSize() * 2);
+    }
+
+    public void setIconDrawer(IconDrawer iconDrawer) {
+        this.iconDrawer = iconDrawer;
     }
 
     public void produceAnt() {
@@ -25,6 +54,10 @@ public class Anthill extends Entity {
 
     @Override
     public void draw() {
+        if (icon != null && iconDrawer != null) {
+            iconDrawer.draw(icon);
+        }
+
         Color color = Color.white;
         switch (team) {
             case BLUE:

@@ -19,6 +19,7 @@ public class SettingsLoader {
         }
 
         settings.recalculate();
+        dumpSettings("settings", settings);
 
         return settings;
     }

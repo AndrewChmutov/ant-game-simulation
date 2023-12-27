@@ -15,6 +15,13 @@ public abstract class Entity {
         tile = TileScaler.scale(tile, scale, scale);
     }
 
+    public void fitTile(String name) {
+        Settings settings = game.getSettings();
+
+        tile = TileLoader.loadTile(name);
+        tile = TileScaler.fit(tile, settings.getTileSize(), settings.getTileSize());
+    }
+
     public void drawTile() {
         GamePanel panel = game.getGamePanel();
         panel.drawImage(tile, position.getPoint());

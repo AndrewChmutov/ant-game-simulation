@@ -1,11 +1,11 @@
 {
   "originalTileSize" : 16,
   "scale" : 3,
-  "tileSize" : 48,
-  "maxX" : 20,
-  "maxY" : 20,
-  "sidePanelSize" : 120,
-  "screenWidth" : 720,
+  "tileSize" : 96,
+  "maxX" : 5,
+  "maxY" : 5,
+  "sidePanelSize" : 192,
+  "screenWidth" : 864,
   "screenHeight" : 480,
   "fps" : 60
 }

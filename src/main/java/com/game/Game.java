@@ -74,12 +74,7 @@ public class Game extends Thread {
         }
     }
 
-    @Override
-    public void run() {
-        deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
-        deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
-        initAnts();
-
+    private void loop() {
         long desiredDelta = 1_000_000_000 / settings.getFps();
         long currentDelta;
 
@@ -99,6 +94,15 @@ public class Game extends Thread {
             }
 
         }
+    }
+
+    @Override
+    public void run() {
+        deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
+        deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
+        initAnts();
+
+        loop();
     }
 
     public Node getNode(int x, int y) {

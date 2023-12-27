@@ -16,7 +16,6 @@ public class Node {
         position = new Point(x, y);
         entities = new ArrayList<>();
         this.game = game;
-        lavrae = ThreadLocalRandom.current().nextInt(0, 100);
     }
 
     public Node(Game game, int x, int y, int lavrae) {
@@ -25,7 +24,15 @@ public class Node {
         this.game = game;
         this.lavrae = lavrae;
     }
-    
+
+    public void setRandomLavrae() {
+        lavrae = ThreadLocalRandom.current().nextInt(0, 100);
+    }
+
+    public void setLavrae(int lavrae) {
+        this.lavrae = lavrae;
+    }
+
     public int getLavraeAmount() {
         return lavrae;
     }

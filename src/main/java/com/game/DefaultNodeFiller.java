@@ -19,6 +19,9 @@ public class DefaultNodeFiller implements INodeFiller {
     public void fill(Node node) {
         double roll = ThreadLocalRandom.current().nextDouble(1);
 
+        if (!node.isEmpty())
+            return;
+
         if (roll < stoneProbability) {
             node.insertEntity(new Stone(node.game, node));
             return;
@@ -30,6 +33,8 @@ public class DefaultNodeFiller implements INodeFiller {
             node.insertEntity(new Leaf(node.game, node));
             return;
         }
+
+        node.setRandomLavrae();
 
         return;
     }

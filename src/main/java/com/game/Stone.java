@@ -24,5 +24,9 @@ public class Stone extends Entity implements IInteractive {
 
         panel.drawImage(tile, position.getPoint());
     }
-    
+
+    @Override
+    public void setupInfo(InfoBundler bundler) {
+    }
+
 }

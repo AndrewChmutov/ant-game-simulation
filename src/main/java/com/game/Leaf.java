@@ -28,5 +28,8 @@ public class Leaf extends Entity implements IAffecting {
 
         panel.drawImage(tile, position.getPoint());
     }
-    
+
+    @Override
+    public void setupInfo(InfoBundler bundler) {
+    }
 }

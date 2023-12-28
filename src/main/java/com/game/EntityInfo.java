@@ -2,9 +2,8 @@ package com.game;
 
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
 
-public abstract class EntityInfo {
+public class EntityInfo {
     protected ArrayList<InfoComponent> infoComponents;
 
     EntityInfo() {
@@ -15,5 +14,12 @@ public abstract class EntityInfo {
         infoComponents.add(component);
     }
 
-    public abstract void pushToPanel(JPanel panel);
+    public void updateComponents() {
+        for (InfoComponent infoComponent : infoComponents)
+            infoComponent.updateComponent();
+    }
+
+    public ArrayList<InfoComponent> getComponents() {
+        return infoComponents;
+    }
 }

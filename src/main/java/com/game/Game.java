@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -69,6 +70,8 @@ public class Game extends Thread {
         panel = new GamePanel(this, nodes);
 
         leftPanel = new JPanel();
+        leftPanel.setDoubleBuffered(true);
+        leftPanel.setBackground(Color.black);
         leftPanel.setPreferredSize(
             new Dimension(
                 settings.getSidePanelSize(),
@@ -77,6 +80,8 @@ public class Game extends Thread {
         );
         
         rightPanel = new JPanel();
+        rightPanel.setDoubleBuffered(true);
+        rightPanel.setBackground(Color.black);
         rightPanel.setPreferredSize(
             new Dimension(
                 settings.getSidePanelSize(),
@@ -122,6 +127,8 @@ public class Game extends Thread {
             long startTime = System.nanoTime();
             Toolkit.getDefaultToolkit().sync();
             panel.repaint();
+            leftPanel.repaint();
+            rightPanel.repaint();
 
             currentDelta = desiredDelta - (System.nanoTime() - startTime);
 
@@ -142,6 +149,9 @@ public class Game extends Thread {
         createNodes();
         deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
         deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
+
+        anthills.get(0).setupInfo(new InfoBundler(rightPanel));
+        anthills.get(1).setupInfo(new InfoBundler(leftPanel));
         fillNodes();
         initAnts();
         loop();

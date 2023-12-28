@@ -81,4 +81,7 @@ public class Ant extends Entity implements Runnable, IMovable {
         game.move(this, position, nextPosition);
         position = nextPosition;
     }
+
+    @Override
+    public void setupInfo(InfoBundler infoBundler) {}
 }

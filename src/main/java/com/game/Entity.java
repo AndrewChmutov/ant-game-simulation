@@ -7,6 +7,7 @@ public abstract class Entity {
     protected Game game;
     protected BufferedImage tile;
     int drawPriority;
+    EntityInfo entityInfo;
 
     public abstract void draw();
 
@@ -31,6 +32,7 @@ public abstract class Entity {
         this.game = game;
         this.position = node;
         drawPriority = 0;
+        entityInfo = new EntityInfo();
     }
 
     public void setDrawPriority(int drawPriority) {
@@ -44,4 +46,6 @@ public abstract class Entity {
     public Node getPosition() {
         return position;
     }
+
+    public abstract void setupInfo(InfoBundler bundler);
 }

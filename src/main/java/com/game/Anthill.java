@@ -1,12 +1,15 @@
 package com.game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JLabel;
 
 import com.game.Ant.Team;
 
 public class Anthill extends Entity {
-    int collectedLavrae;
+    Integer collectedLavrae;
     Team team;
     
     BufferedImage icon;
@@ -60,7 +63,23 @@ public class Anthill extends Entity {
                 break;
         }
 
+        entityInfo.updateComponents();
+
         GamePanel panel = game.getGamePanel();
         panel.fillRect(position.getPoint(), color);
+    }
+
+    @Override
+    public void setupInfo(InfoBundler bundler) {
+        JLabel label = new JLabel();
+        label.setForeground(Color.white);
+        label.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
+        entityInfo.addComponent(new InfoComponent(label) {
+            @Override
+            void updateComponent() {
+                ((JLabel)component).setText("Collected lavrae: " + collectedLavrae);
+            }
+        });
+        bundler.bundle(entityInfo.getComponents());
     }
 }

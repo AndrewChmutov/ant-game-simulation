@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public abstract class InfoBundler {
+public class InfoBundler {
     JPanel panel;
 
     InfoBundler(JPanel panel) {

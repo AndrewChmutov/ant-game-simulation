@@ -5,12 +5,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.Toolkit;
 
 public class Game extends Thread {
@@ -24,28 +19,35 @@ public class Game extends Thread {
 
     public Game() {
         loadSettings();
-        setupField();
-        setupScreen();
+
+        nodes = new ArrayList<>();
+        anthills = new ArrayList<>();
+
     }
 
     public void loadSettings() {
         SettingsLoader settingsLoader;
         settingsLoader = new SettingsLoader();
         settings = settingsLoader.loadSettings("settings"); 
+
     }
     
-    public void setupField() {
-        anthills = new ArrayList<>();
-        nodes = new ArrayList<>();
-        INodeFiller filler = new DefaultNodeFiller(0.05, 0.05);
-        
+    public void createNodes() {
         for (int i = 0; i < settings.getMaxY(); i++) {
             for (int j = 0; j < settings.getMaxX(); j++) {
                 Node node = new Node(this, j, i);
-                filler.fill(node);
                 nodes.add(node);
             }
         }
+    }
+
+    public void fillNodes() {
+        INodeFiller filler = new DefaultNodeFiller(0.1, 0.2);
+        
+        for (Node node : nodes) {
+            filler.fill(node);
+        }
+
     }
 
     public GamePanel getGamePanel() {
@@ -120,9 +122,6 @@ public class Game extends Thread {
             long startTime = System.nanoTime();
             Toolkit.getDefaultToolkit().sync();
             panel.repaint();
-            // System.out.println("Frame" + frame.getSize());
-            // System.out.println("GPanel" + panel.getSize());
-            // System.out.println("MainPanel" + mainPanel.getSize());
 
             currentDelta = desiredDelta - (System.nanoTime() - startTime);
 
@@ -139,11 +138,12 @@ public class Game extends Thread {
 
     @Override
     public void run() {
+        setupScreen();
+        createNodes();
         deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
         deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
-
+        fillNodes();
         initAnts();
-
         loop();
     }
 

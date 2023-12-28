@@ -4,8 +4,8 @@
   "tileSize" : 96,
   "maxX" : 5,
   "maxY" : 5,
-  "sidePanelSize" : 192,
-  "screenWidth" : 864,
+  "sidePanelSize" : 0,
+  "screenWidth" : 480,
   "screenHeight" : 480,
   "fps" : 60
 }

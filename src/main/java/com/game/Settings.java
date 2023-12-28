@@ -24,7 +24,7 @@ public class Settings {
         screenWidth = tileSize * maxX + 2 * sidePanelSize;
         screenHeight = tileSize * maxY;
 
-        sidePanelSize = tileSize * 2;
+        sidePanelSize = 0;
     }
 
     public int getOriginalTileSize() {

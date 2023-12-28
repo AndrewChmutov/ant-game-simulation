@@ -10,7 +10,6 @@ public class Anthill extends Entity {
     Team team;
     
     BufferedImage icon;
-    IconDrawer iconDrawer;
 
     public Anthill(Game game, Node position, Team team) {
         super(game, position);
@@ -40,9 +39,6 @@ public class Anthill extends Entity {
             settings.getTileSize() * 2);
     }
 
-    public void setIconDrawer(IconDrawer iconDrawer) {
-        this.iconDrawer = iconDrawer;
-    }
 
     public void produceAnt() {
         Ant ant = new Ant(game, position, team);
@@ -54,10 +50,6 @@ public class Anthill extends Entity {
 
     @Override
     public void draw() {
-        if (icon != null && iconDrawer != null) {
-            iconDrawer.draw(icon);
-        }
-
         Color color = Color.white;
         switch (team) {
             case BLUE:

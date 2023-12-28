@@ -12,12 +12,15 @@ public class Game extends Thread {
     ArrayList<Anthill> anthills;
 
     public Game() {
+        loadSettings();
+        setupField();
+        setupScreen();
+    }
+
+    public void loadSettings() {
         SettingsLoader settingsLoader;
         settingsLoader = new SettingsLoader();
         settings = settingsLoader.loadSettings("settings"); 
-
-        setupField();
-        setupScreen();
     }
     
     public void setupField() {

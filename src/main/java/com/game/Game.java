@@ -1,11 +1,22 @@
 package com.game;
 
 import java.util.ArrayList;
+
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 public class Game extends Thread {
     GameFrame frame;
     GamePanel panel;
+    JPanel mainPanel, leftPanel, rightPanel;
     Settings settings;
 
     ArrayList<Node> nodes;
@@ -49,9 +60,33 @@ public class Game extends Thread {
         assert nodes != null : "Nodes have to be initialized. Call setupField() first";
 
         frame = new GameFrame();
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+
         panel = new GamePanel(this, nodes);
 
-        frame.add(panel);
+        leftPanel = new JPanel();
+        leftPanel.setPreferredSize(
+            new Dimension(
+                settings.getSidePanelSize(),
+                settings.getScreenHeight()
+            )
+        );
+        
+        rightPanel = new JPanel();
+        rightPanel.setPreferredSize(
+            new Dimension(
+                settings.getSidePanelSize(),
+                settings.getScreenHeight()
+            )
+        );
+
+        mainPanel.add(leftPanel);
+        mainPanel.add(panel);
+        mainPanel.add(rightPanel);
+
+        frame.add(mainPanel);
         frame.pack();
         frame.setVisible(true);
     }
@@ -85,6 +120,9 @@ public class Game extends Thread {
             long startTime = System.nanoTime();
             Toolkit.getDefaultToolkit().sync();
             panel.repaint();
+            // System.out.println("Frame" + frame.getSize());
+            // System.out.println("GPanel" + panel.getSize());
+            // System.out.println("MainPanel" + mainPanel.getSize());
 
             currentDelta = desiredDelta - (System.nanoTime() - startTime);
 

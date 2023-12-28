@@ -24,8 +24,8 @@ public class GamePanel extends JPanel {
 
         this.setPreferredSize(
             new Dimension(
-                settings.getScreenWidth(), 
-                settings.getScreenHeight()
+                settings.getMaxX() * settings.getTileSize(),
+                settings.getMaxY() * settings.getTileSize()
             )
         );
 
@@ -99,11 +99,11 @@ public class GamePanel extends JPanel {
     void drawGrid() {
         g2.setColor(Color.white);
         for (int i = 0; i <= settings.getMaxX(); i++) {
-            g2.drawLine(settings.getSidePanelSize() + i * settings.getTileSize(), 0, settings.getSidePanelSize() + i * settings.getTileSize(), settings.getScreenHeight());
+            g2.drawLine(i * settings.getTileSize(), 0, i * settings.getTileSize(), settings.getScreenHeight());
         }
 
-        for (int i = 0; i < settings.getMaxY(); i++) {
-            g2.drawLine(settings.getSidePanelSize(), i * settings.getTileSize(), settings.getScreenWidth() - settings.getSidePanelSize(), i * settings.getTileSize());
+        for (int i = 0; i <= settings.getMaxY(); i++) {
+            g2.drawLine(0, i * settings.getTileSize(), settings.getMaxX() * settings.getTileSize(), i * settings.getTileSize());
         }
     }
 
@@ -116,6 +116,6 @@ public class GamePanel extends JPanel {
     }
 
     public Point getOriginalPoint(Point p) {
-        return new Point(settings.getSidePanelSize() + (int)p.getX() * settings.getTileSize(), (int)p.getY() * settings.getTileSize());
+        return new Point((int)p.getX() * settings.getTileSize(), (int)p.getY() * settings.getTileSize());
     }
 }

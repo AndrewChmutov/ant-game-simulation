@@ -4,13 +4,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JLabel;
 
 import com.game.Ant.Team;
 
+
 public class Anthill extends Entity {
-    Integer collectedLavrae;
+    AtomicInteger collectedLavrae;
+    AtomicInteger antCount;
+
     Team team;
     ArrayList<Ant> ants;
 
@@ -20,7 +24,8 @@ public class Anthill extends Entity {
     public Anthill(Game game, Node position, Team team) {
         super(game, position);
 
-        collectedLavrae = 0;
+        collectedLavrae = new AtomicInteger(0);
+        antCount = new AtomicInteger(0);
         this.team = team;
 
         Settings settings = game.getSettings();
@@ -50,6 +55,8 @@ public class Anthill extends Entity {
 
     public void produceAnt() {
         Ant ant = new Ant(game, position, team);
+        antCount.incrementAndGet();
+        System.out.println(antCount);
         ants.add(ant);
         position.insertEntity(ant);
 
@@ -85,28 +92,20 @@ public class Anthill extends Entity {
 
     @Override
     public void setupInfo(InfoBundler bundler) {
-        entityInfo.addComponent(new InfoComponent(getDefaultlLabel()) {
-            @Override
-            void updateComponent() {
-                synchronized (this) {
-                    ((JLabel)component).setText("Collected lavrae: " + collectedLavrae);
-                }
-            }
-        });
+        InfoComponent infoComponent = new InfoLabel(
+            "Collected lavrae: ",
+            collectedLavrae
+        );
 
-        entityInfo.addComponent(new InfoComponent(getDefaultlLabel()) {
-            @Override
-            void updateComponent() {
-                synchronized (this) {
-                    ((JLabel)component).setText("Alive ants: " + getAntCount());
-                }
-            }
-        });
+        entityInfo.addComponent(infoComponent);
+
+        infoComponent = new InfoLabel(
+            "Alive ants: ",
+            antCount
+        );
+
+        entityInfo.addComponent(infoComponent);
 
         bundler.bundle(entityInfo.getComponents());
-    }
-
-    public synchronized int getAntCount() {
-        return ants.size();
     }
 }

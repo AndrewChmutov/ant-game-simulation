@@ -1,3 +1,7 @@
 target
 build.sh
 run.sh
+.settings
+.classpath
+.project
+.gitignore

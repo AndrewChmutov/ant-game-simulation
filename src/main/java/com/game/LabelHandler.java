@@ -2,7 +2,9 @@ package com.game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class LabelHandler {

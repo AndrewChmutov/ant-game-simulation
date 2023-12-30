@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ant extends Entity implements Runnable, IMovable {
+public class Ant extends Behaving implements Runnable {
     enum Team {
         BLUE,
         RED
@@ -18,15 +18,18 @@ public class Ant extends Entity implements Runnable, IMovable {
 
     public Ant(Game game, Node position, Team team) {
         super(game, position);
-        this.color = team;
         super.setDrawPriority(1);
+
+        addBehavior(new WanderBehavior(game, this));
+
+        this.color = team;
         health = 10;
     }
 
     @Override
     public void run() {
         while (health > 0) {
-            move();
+            behave();
 
             ArrayList<IInteractive> toInterract = new ArrayList<>();
 
@@ -71,17 +74,10 @@ public class Ant extends Entity implements Runnable, IMovable {
     }
 
     @Override
-    public void move() {
-        ArrayList<Node> neighbors = position.getNeighbors();
-
-        int nextMove = ThreadLocalRandom.current().nextInt(neighbors.size());
-
-        Node nextPosition = neighbors.get(nextMove);
-
-        game.move(this, position, nextPosition);
-        position = nextPosition;
-    }
+    public void setupInfo(InfoBundler infoBundler) {}
 
     @Override
-    public void setupInfo(InfoBundler infoBundler) {}
+    public void behave() {
+        behaviors.get(0).activate(status);
+    }
 }

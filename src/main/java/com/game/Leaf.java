@@ -14,9 +14,7 @@ public class Leaf extends Entity implements IAffecting {
         ArrayList<Entity> affected = new ArrayList<Entity>(entities);
 
         for (Entity e : entities) {
-            if (e instanceof IMovable) {
-                affected.remove(e);
-            }
+            affected.remove(e);
         }
 
         return affected;

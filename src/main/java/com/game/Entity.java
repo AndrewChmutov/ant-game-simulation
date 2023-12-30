@@ -47,5 +47,9 @@ public abstract class Entity {
         return position;
     }
 
+    public void setPosition(Node position) {
+        this.position = position;
+    }
+
     public abstract void setupInfo(InfoBundler bundler);
 }

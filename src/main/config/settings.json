@@ -2,10 +2,11 @@
   "originalTileSize" : 16,
   "scale" : 3,
   "tileSize" : 96,
-  "maxX" : 5,
-  "maxY" : 5,
+  "maxX" : 10,
+  "maxY" : 10,
   "sidePanelSize" : 192,
-  "screenWidth" : 864,
-  "screenHeight" : 480,
-  "fps" : 60
+  "screenWidth" : 1344,
+  "screenHeight" : 960,
+  "fps" : 60,
+  "speed" : 1.0
 }

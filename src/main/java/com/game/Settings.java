@@ -19,6 +19,7 @@ public class Settings {
     private int screenHeight = tileSize * maxY;
 
     private int fps = 60;
+    private double speed = 0.25;
 
     public void recalculate() {
         screenWidth = tileSize * maxX + 2 * sidePanelSize;
@@ -63,6 +64,10 @@ public class Settings {
         return fps;
     }
 
+    public synchronized double getSpeed() {
+        return speed;
+    }
+
     public synchronized void setOriginalTileSize(int originalTileSize) {
         this.originalTileSize = originalTileSize;
     }
@@ -97,5 +102,9 @@ public class Settings {
 
     public synchronized void setFps(int fps) {
         this.fps = fps;
+    }
+
+    public synchronized void setSpeed(double speed) {
+        this.speed = speed;
     }
 }

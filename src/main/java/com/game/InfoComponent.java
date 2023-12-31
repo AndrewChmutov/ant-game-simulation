@@ -2,7 +2,7 @@ package com.game;
 
 import java.awt.Component;
 
-public abstract class InfoComponent {
+public class InfoComponent {
     Component component;
 
     InfoComponent() {}
@@ -15,7 +15,7 @@ public abstract class InfoComponent {
         this.component = component;
     }
 
-    abstract void updateComponent();
+    void updateComponent() {};
 
     void draw() {
         if (component != null)

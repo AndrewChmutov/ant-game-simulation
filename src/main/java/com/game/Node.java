@@ -77,7 +77,7 @@ public class Node {
 
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                if (i == j)
+                if (i == j || (i != 0 && j != 0))
                     continue;
                 
                 Node temp = game.getNode((int)position.getX() + i, (int)position.getY() + j);

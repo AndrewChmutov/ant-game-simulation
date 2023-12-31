@@ -111,13 +111,21 @@ public class Game extends Thread {
         return a;
     }
 
-    void initAnts() {
-        for (int i = 0; i < anthills.size(); i++) {
-            for (int j = 0; j < 3; j++) {
-                anthills.get(i).produceAnt();
-            }
-        }
+    public Anthill deployAnthill(int x, int y, Ant.Team team,
+            ArrayList<ArrayList<Behavior>> antTypes,
+            ArrayList<String> antLabels) {
+        Node n = getNode(x, y);
+
+        assert n != null : "Invalid node"; 
+        assert n.isEmpty() : "Node is not empty";
+
+        Anthill a = new Anthill(this, n, team);
+        n.insertEntity(a);
+        anthills.add(a);
+
+        return a;
     }
+
 
     private void loop() {
         long desiredDelta = 1_000_000_000 / settings.getFps();
@@ -150,10 +158,9 @@ public class Game extends Thread {
         deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
         deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
 
-        anthills.get(0).setupInfo(new InfoBundler(rightPanel));
-        anthills.get(1).setupInfo(new InfoBundler(leftPanel));
+        anthills.get(0).setupInfo(new InfoBundler(this, rightPanel));
+        anthills.get(1).setupInfo(new InfoBundler(this, leftPanel));
         fillNodes();
-        initAnts();
         loop();
     }
 

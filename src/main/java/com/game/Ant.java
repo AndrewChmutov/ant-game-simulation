@@ -26,6 +26,16 @@ public class Ant extends Behaving implements Runnable {
         health = 10;
     }
 
+    public Ant(Game game, Node position, Team team, ArrayList<Behavior> behaviors) {
+        super(game, position);
+        super.setDrawPriority(1);
+
+        this.behaviors = behaviors;
+
+        this.color = team;
+        health = 10;
+    }
+
     @Override
     public void run() {
         while (health > 0) {

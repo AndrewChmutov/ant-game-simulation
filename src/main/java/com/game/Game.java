@@ -158,8 +158,8 @@ public class Game extends Thread {
         deployAnthill(settings.getMaxY() - 1, 0, Ant.Team.BLUE);
         deployAnthill(0, settings.getMaxY() - 1, Ant.Team.RED);
 
-        anthills.get(0).setupInfo(new InfoBundler(this, rightPanel));
-        anthills.get(1).setupInfo(new InfoBundler(this, leftPanel));
+        anthills.get(0).setupInfo(new InfoBundler(rightPanel));
+        anthills.get(1).setupInfo(new InfoBundler(leftPanel)); 
         fillNodes();
         loop();
     }

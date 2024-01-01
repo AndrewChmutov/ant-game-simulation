@@ -11,7 +11,7 @@ public abstract class Entity {
 
     public abstract void draw();
 
-    public void setTile(String name, int scale) {
+    public void setTile(String name, double scale) {
         tile = TileLoader.loadTile(name);
         tile = TileScaler.scale(tile, scale, scale);
     }

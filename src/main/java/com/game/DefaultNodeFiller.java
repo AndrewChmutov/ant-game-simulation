@@ -34,7 +34,7 @@ public class DefaultNodeFiller implements INodeFiller {
             return;
         }
 
-        node.setRandomLavrae();
+        node.setRandomLarvae();
 
         return;
     }

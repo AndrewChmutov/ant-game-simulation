@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Settings {
     private int originalTileSize = 16;
-    private int scale = 3;
+    private double scale = 3;
 
-    private int tileSize = originalTileSize * scale;
+    private int tileSize = (int)(originalTileSize * scale);
     
     private int maxX = 10;
     private int maxY = 10;
 
-    private int sidePanelSize = 120;
+    private int sidePanelSize = 160;
     private int screenWidth = tileSize * maxX + 2 * sidePanelSize;
     private int screenHeight = tileSize * maxY;
 
@@ -22,17 +22,18 @@ public class Settings {
     private double speed = 0.25;
 
     public void recalculate() {
+        tileSize = (int)(originalTileSize * scale);
         screenWidth = tileSize * maxX + 2 * sidePanelSize;
         screenHeight = tileSize * maxY;
 
-        sidePanelSize = 2 * tileSize;
+        sidePanelSize = Math.max(160, 2 * tileSize);
     }
 
     public int getOriginalTileSize() {
         return originalTileSize;
     }
 
-    public int getScale() {
+    public double getScale() {
         return scale;
     }
 
@@ -72,7 +73,7 @@ public class Settings {
         this.originalTileSize = originalTileSize;
     }
 
-    public synchronized void setScale(int scale) {
+    public synchronized void setScale(double scale) {
         this.scale = scale;
     }
 

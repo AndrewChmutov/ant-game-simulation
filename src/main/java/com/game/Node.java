@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Node {
     Point position;
-    int lavrae;
+    int larvae;
 
     ArrayList<Entity> entities;
     Game game;
@@ -18,30 +18,30 @@ public class Node {
         this.game = game;
     }
 
-    public Node(Game game, int x, int y, int lavrae) {
+    public Node(Game game, int x, int y, int larvae) {
         position = new Point(x, y);
         entities = new ArrayList<>();
         this.game = game;
-        this.lavrae = lavrae;
+        this.larvae = larvae;
     }
 
-    public void setRandomLavrae() {
-        lavrae = ThreadLocalRandom.current().nextInt(0, 100);
+    public void setRandomLarvae() {
+        larvae = ThreadLocalRandom.current().nextInt(0, 100);
     }
 
-    public void setLavrae(int lavrae) {
-        this.lavrae = lavrae;
+    public void setLavrae(int larvae) {
+        this.larvae = larvae;
     }
 
     public int getLavraeAmount() {
-        return lavrae;
+        return larvae;
     }
 
     public int collectLavrae(int capacity) {
         int toCollect;
         synchronized (game) {
-            toCollect = Math.min(lavrae, capacity);
-            lavrae -= toCollect;
+            toCollect = Math.min(larvae, capacity);
+            larvae -= toCollect;
         }
 
         return toCollect;
@@ -94,7 +94,7 @@ public class Node {
     }
 
     public void draw() {
-        int chroma = Math.min((int)(1.0 * lavrae / 100 * 128), 128);
+        int chroma = Math.min((int)(1.0 * larvae / 100 * 128), 128);
 
         GamePanel panel = game.getGamePanel();
 

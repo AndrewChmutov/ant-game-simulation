@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class InfoBundler {
     JPanel panel;
 
-    InfoBundler(Game game, JPanel panel) {
+    InfoBundler(JPanel panel) {
         this.panel = panel;
     }
 

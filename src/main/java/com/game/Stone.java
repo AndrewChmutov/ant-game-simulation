@@ -3,18 +3,18 @@ package com.game;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Stone extends Entity implements IInteractive {
-    public Stone(Game game, Node node) {
-        super(game, node);
+    public Stone(Game game, Node position) {
+        super(game, position);
         super.setDrawPriority(3);
         super.fitTile("stone");
     }
 
     @Override
-    public void interact(Entity e) {
+    public void interact(Entity entity) {
         try {
             Thread.sleep(ThreadLocalRandom.current().nextInt(400) + 300);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -26,7 +26,7 @@ public class Stone extends Entity implements IInteractive {
     }
 
     @Override
-    public void setupInfo(InfoBundler bundler) {
+    public void setupInfo(InfoBundler infoBundler) {
     }
 
 }

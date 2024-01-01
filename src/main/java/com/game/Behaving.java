@@ -6,8 +6,8 @@ public abstract class Behaving extends Entity {
     protected ArrayList<Behavior> behaviors;
     protected String status;
 
-    Behaving(Game game, Node node) {
-        super(game, node);
+    Behaving(Game game, Node position) {
+        super(game, position);
 
         behaviors = new ArrayList<>();
     }

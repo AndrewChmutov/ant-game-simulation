@@ -25,7 +25,6 @@ public class Anthill extends Entity {
     ArrayList<ArrayList<Behavior>> antTypes;
     ArrayList<String> antLabels;
 
-    BufferedImage icon;
 
     public Anthill(Game game, Node position, Team team) {
         super(game, position);
@@ -49,9 +48,9 @@ public class Anthill extends Entity {
                 break;
         }
 
-        icon = TileLoader.loadTile(picName);
-        icon = TileScaler.fit(
-            icon,
+        tile = TileLoader.loadTile(picName);
+        tile = TileScaler.fit(
+            tile,
             settings.getTileSize() * 2,
             settings.getTileSize() * 2);
 
@@ -115,14 +114,6 @@ public class Anthill extends Entity {
 
         GamePanel panel = game.getGamePanel();
         panel.fillRect(position.getPoint(), color);
-    }
-
-    public JLabel getDefaultlLabel() {
-        JLabel label = new JLabel();
-        label.setForeground(Color.white);
-        label.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
-
-        return label;
     }
 
     @Override

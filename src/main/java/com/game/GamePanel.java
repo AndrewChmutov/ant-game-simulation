@@ -50,7 +50,7 @@ public class GamePanel extends JPanel {
     }
 
     void fillRect(Point position, Color color) {
-        Settings settings = new 
+        Settings settings = new Settings();
         if (System.getProperty("os.name").contains("Linux")) 
             Toolkit.getDefaultToolkit().sync();
         
@@ -67,6 +67,7 @@ public class GamePanel extends JPanel {
     }
 
     void fillOval(Point position, Color color) {
+        Settings settings = new Settings();
         if (System.getProperty("os.name").contains("Linux")) 
             Toolkit.getDefaultToolkit().sync();
         
@@ -97,6 +98,7 @@ public class GamePanel extends JPanel {
     }
 
     void drawGrid() {
+        Settings settings = new Settings();
         g2.setColor(Color.white);
         for (int i = 0; i <= settings.getMaxX(); i++) {
             g2.drawLine(i * settings.getTileSize(), 0, i * settings.getTileSize(), settings.getScreenHeight());
@@ -116,6 +118,7 @@ public class GamePanel extends JPanel {
     }
 
     public Point getOriginalPoint(Point p) {
+        Settings settings = new Settings();
         return new Point((int)p.getX() * settings.getTileSize(), (int)p.getY() * settings.getTileSize());
     }
 }

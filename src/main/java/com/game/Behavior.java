@@ -26,5 +26,5 @@ public abstract class Behavior implements Cloneable {
         return (Behavior)obj;
     }
 
-    public abstract void activate(String status);
+    public abstract void activate();
 }

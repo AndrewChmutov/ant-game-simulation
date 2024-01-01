@@ -5,7 +5,7 @@
   "maxX" : 10,
   "maxY" : 10,
   "sidePanelSize" : 160,
-  "screenWidth" : 760,
+  "screenWidth" : 800,
   "screenHeight" : 480,
   "fps" : 60,
   "speed" : 1.0

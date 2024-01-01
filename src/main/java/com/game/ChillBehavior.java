@@ -8,7 +8,7 @@ public class ChillBehavior extends Behavior {
     }
 
     @Override
-    public void activate(String status) {
+    public void activate() {
         try {
             Thread.sleep(300 + ThreadLocalRandom.current().nextInt(200));
         } catch (InterruptedException e) {

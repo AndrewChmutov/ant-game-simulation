@@ -14,13 +14,12 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
     Graphics2D g2;
     ArrayList<Node> nodes;
-    Settings settings;
     Game game;
 
     public GamePanel(Game game, ArrayList<Node> nodes) {
         this.game = game;
         this.nodes = nodes;
-        settings = game.getSettings();
+        Settings settings = game.getSettings();
 
         this.setPreferredSize(
             new Dimension(
@@ -51,6 +50,7 @@ public class GamePanel extends JPanel {
     }
 
     void fillRect(Point position, Color color) {
+        Settings settings = new 
         if (System.getProperty("os.name").contains("Linux")) 
             Toolkit.getDefaultToolkit().sync();
         

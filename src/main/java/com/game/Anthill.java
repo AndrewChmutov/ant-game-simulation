@@ -58,6 +58,7 @@ public class Anthill extends Entity {
 
         ArrayList<Behavior> defaultAnt = new ArrayList<>();
         defaultAnt.add(new WanderBehavior(game, null));
+        defaultAnt.add(new ChillBehavior(game, null));
 
         antTypes = new ArrayList<>();
         antLabels = new ArrayList<>();

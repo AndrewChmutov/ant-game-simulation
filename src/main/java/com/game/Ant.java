@@ -88,6 +88,7 @@ public class Ant extends Behaving implements Runnable {
 
     @Override
     public void behave() {
-        behaviors.get(0).activate(status);
+        for (Behavior behavior : behaviors)
+            behavior.activate();
     }
 }

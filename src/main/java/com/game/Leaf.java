@@ -2,11 +2,15 @@ package com.game;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
+
 public class Leaf extends Entity implements IAffecting {
     public Leaf(Game game, Node node) {
         super(game, node);
         super.setDrawPriority(0);
         super.fitTile("leaf");
+        setupInfo();
     }
 
     @Override
@@ -28,6 +32,7 @@ public class Leaf extends Entity implements IAffecting {
     }
 
     @Override
-    public void setupInfo(InfoBundler bundler) {
+    public void setupInfo() {
+        entityInfo.addComponent(new InfoLabel("Leaf", tile));
     }
 }

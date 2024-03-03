@@ -2,6 +2,7 @@ package com.game;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class InfoBundler {
@@ -12,7 +13,13 @@ public class InfoBundler {
     }
 
     public void bundle(ArrayList<InfoComponent> infoComponents) {
-        for (InfoComponent infoComponent : infoComponents)
-            panel.add(infoComponent.getComponent());
+        synchronized (panel) {
+            panel.removeAll();
+            for (InfoComponent infoComponent : infoComponents) {
+                panel.add(infoComponent.getComponent());
+                panel.setVisible(true);
+                panel.repaint();
+            }
+        }
     }
 }

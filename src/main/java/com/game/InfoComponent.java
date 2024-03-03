@@ -3,11 +3,11 @@ package com.game;
 import java.awt.Component;
 
 public class InfoComponent {
-    Component component;
+    protected Component component;
 
-    InfoComponent() {}
+    public InfoComponent() {}
 
-    InfoComponent(Component component) {
+    public InfoComponent(Component component) {
         setComponent(component);
     }
 
@@ -15,9 +15,9 @@ public class InfoComponent {
         this.component = component;
     }
 
-    void updateComponent() {};
+    public void updateComponent() {};
 
-    void draw() {
+    public void draw() {
         if (component != null)
             component.repaint();
     }

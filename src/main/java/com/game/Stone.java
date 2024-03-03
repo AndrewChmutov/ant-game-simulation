@@ -7,12 +7,21 @@ public class Stone extends Entity implements IInteractive {
         super(game, position);
         super.setDrawPriority(3);
         super.fitTile("stone");
+        setupInfo();
     }
 
     @Override
     public void interact(Entity entity) {
+        double speed = game
+            .getSettings()
+            .getSpeed();
+
         try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(400) + 300);
+            Thread.sleep(
+                ThreadLocalRandom
+                    .current()
+                    .nextInt((int)(speed * 400)) + (int)(speed * 300));
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -26,7 +35,8 @@ public class Stone extends Entity implements IInteractive {
     }
 
     @Override
-    public void setupInfo(InfoBundler infoBundler) {
+    public void setupInfo() {
+        entityInfo.addComponent(new InfoLabel("stone", tile));
     }
 
 }

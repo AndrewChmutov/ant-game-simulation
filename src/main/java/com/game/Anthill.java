@@ -1,35 +1,45 @@
 package com.game;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ByteLookupTable;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import com.game.Ant.Team;
 
-
+/**
+ * The {@code Anthill} class represents an anthill in the game world. Anthills are entities that produce ants,
+ * collect larvae, and have specific behaviors in the game. Anthills can belong to different teams (BLUE or RED).
+ *
+ * <p>Anthills can produce ants with specific behaviors and labels. They keep track of the number of collected larvae,
+ * the number of alive ants, and display information on the game screen. Anthills extend the {@code Entity} class.
+ *
+ */
 public class Anthill extends Entity {
-    AtomicInteger collectedLavrae;
-    AtomicInteger antCount;
+    private AtomicInteger collectedLarvae;
+    private AtomicInteger antCount;
 
-    Team team;
-    ArrayList<Ant> ants;
-    ArrayList<ArrayList<Behavior>> antTypes;
-    ArrayList<String> antLabels;
+    private Team team;
+    private ArrayList<Ant> ants;
+    private ArrayList<ArrayList<Behavior>> antTypes;
+    private ArrayList<String> antLabels;
 
 
+    /**
+     * Constructs an anthill with default behaviors, given the game, initial position, and team.
+     *
+     * @param game    The game in which the anthill exists.
+     * @param position The initial position of the anthill.
+     * @param team     The team to which the anthill belongs (BLUE or RED).
+     */
     public Anthill(Game game, Node position, Team team) {
         super(game, position);
 
-        collectedLavrae = new AtomicInteger(0);
+        collectedLarvae = new AtomicInteger(0);
         antCount = new AtomicInteger(0);
         this.team = team;
 
@@ -64,24 +74,44 @@ public class Anthill extends Entity {
         antLabels = new ArrayList<>();
         antTypes.add(defaultAnt);
         antLabels.add("Default");
+
+        setupInfo();
     }
 
+    /**
+     * Constructs an anthill with specified behaviors, given the game, initial position, team, ant types, and ant labels.
+     *
+     * @param game      The game in which the anthill exists.
+     * @param position  The initial position of the anthill.
+     * @param team      The team to which the anthill belongs (BLUE or RED).
+     * @param antTypes  The list of ant behaviors for different ant types.
+     * @param antLabels The list of labels associated with each ant type.
+     */
     public Anthill(Game game, Node position, Team team,
             ArrayList<ArrayList<Behavior>> antTypes,
             ArrayList<String> antLabels) {
         this(game, position, team);
         this.antTypes = antTypes;
         this.antLabels = antLabels;
+
+        entityInfo = new EntityInfo();
+        setupInfo();
     }
 
 
+     /**
+     * Produces an ant of a specific type based on the provided index.
+     *
+     * @param i The index representing the ant type.
+     * 
+     */
     public void produceAnt(int i) {
         ArrayList<Behavior> toInsert = new ArrayList<>();
         for (Behavior behavior : antTypes.get(i)) {
             toInsert.add(behavior.clone());
         }
 
-        Ant ant = new Ant(game, position, team, toInsert);
+        Ant ant = new Ant(game, position, team, toInsert, antLabels.get(i));
 
         for (Behavior behavior : toInsert) {
             behavior.setSubject(ant);
@@ -93,10 +123,6 @@ public class Anthill extends Entity {
 
         Thread t = new Thread(ant);
         t.start();
-    }
-
-    synchronized void deleteAnd(Ant ant) {
-        ants.remove(ant);
     }
 
     @Override
@@ -118,12 +144,12 @@ public class Anthill extends Entity {
     }
 
     @Override
-    public void setupInfo(InfoBundler bundler) {
+    protected void setupInfo() {
         Settings settings = game.getSettings();
 
         InfoComponent infoComponent = new InfoLabel(
-            "Collected lavrae: ",
-            collectedLavrae
+            "Collected larvae: ",
+            collectedLarvae
         );
 
         entityInfo.addComponent(infoComponent);
@@ -174,7 +200,30 @@ public class Anthill extends Entity {
             });
             entityInfo.addComponent(new InfoComponent(button));
         }
+    }
 
-        bundler.bundle(entityInfo.getComponents());
+     /**
+     * Kills the specified ant, updating collected larvae and ant count if applicable.
+     *
+     * @param ant The ant to be killed.
+     */
+    public void kill(Ant ant) {
+        if (ants.contains(ant)) {
+            ants.remove(ant);
+
+            if (this.getPosition() == ant.getPosition()) {
+                collectedLarvae.set(collectedLarvae.get() + ant.getAndEmpty());
+            }
+            antCount.decrementAndGet();
+        }
+    }
+
+    /**
+     * Adds larvae to the collected larvae count.
+     *
+     * @param l The number of larvae to be added.
+     */
+    public void putLarvae(int l) {
+        collectedLarvae.set(collectedLarvae.get() + l);
     }
 }

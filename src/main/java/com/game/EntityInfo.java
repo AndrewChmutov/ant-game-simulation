@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 public class EntityInfo {
-    protected ArrayList<InfoComponent> infoComponents;
+    private ArrayList<InfoComponent> infoComponents;
 
     EntityInfo() {
         infoComponents = new ArrayList<>();

@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
-    Graphics2D g2;
-    ArrayList<Node> nodes;
-    Game game;
+    private Graphics2D g2;
+    private ArrayList<Node> nodes;
+    private Game game;
 
     public GamePanel(Game game, ArrayList<Node> nodes) {
         this.game = game;
